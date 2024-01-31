@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block body %}
+<form class="container mt-3 border border-primary" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="m-3">Login Form</h1>
+    {% if messages %}
+        {{ message.tags }}
+        <div class="alert alert-primary" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Username @</span>
+        <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <div class="input-group">
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                <i id="passwordToggleIcon" class="bi bi-eye"></i>
+            </button>
+        </div>
+        <p>If you're new please <a href="/">Register?<a></p>
+    </div>
+        
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+</form>
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("exampleInputPassword1");
+        var passwordToggleIcon = document.getElementById("passwordToggleIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggleIcon.classList.remove("bi-eye");
+            passwordToggleIcon.classList.add("bi-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            passwordToggleIcon.classList.remove("bi-eye-slash");
+            passwordToggleIcon.classList.add("bi-eye");
+        }
+    }
+</script>
+{% endblock %}

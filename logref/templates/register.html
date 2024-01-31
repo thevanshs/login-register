@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block body %}
+<form class="container mt-3 border border-primary" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1 class="m-3">Registration Form</h1>
+    {% if messages %}
+        {{ message.tags }}
+        <div class="alert alert-primary" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="input-group mb-3">
+        <span class="input-group-text">First and last name</span>
+        <input type="text" name="fname" aria-label="First name" class="form-control">
+        <input type="text" name="lname" aria-label="Last name" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Username @</span>
+        <input type="text" name="username" class="form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <div class="input-group">
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+            <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility()">
+                <i id="passwordToggleIcon" class="bi bi-eye"></i>
+            </button>
+        </div>
+        <p style="color: tomato;">Password must be at least 8 characters long, contain at least one digit [0-9], one uppercase letter [A-Z], and one special character [!@#$%^&*(),.?":{}|<>]</p>
+        <p>Already a user <a href="login/">login?<a></p>
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+</form>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("exampleInputPassword1");
+        var passwordToggleIcon = document.getElementById("passwordToggleIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggleIcon.classList.remove("bi-eye");
+            passwordToggleIcon.classList.add("bi-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            passwordToggleIcon.classList.remove("bi-eye-slash");
+            passwordToggleIcon.classList.add("bi-eye");
+        }
+    }
+</script>
+
+{% endblock %}
